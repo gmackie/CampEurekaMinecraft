@@ -1,0 +1,196 @@
+section
+  h1 Learning To Program with Minecraft
+  h3 Camp Eureka 2014
+  p.
+    Created by 
+    <a href="http://grahammackie.com">Graham Mackie</a>
+    /
+    <a href="http://twitter.com/grahamamckie">@GrahamMackie</a>
+section
+  section
+    h1 Introductions
+  section
+    h1 Who am I?
+      h2 Graham Mackie
+      ul
+        li 
+          | Just graduated from The Univeristy of Michigan
+          ul
+            li Bachelor's in Computer Engineering
+        li 
+          | Learned to program at 12
+          ul
+            li Taught myself
+        li 
+          | Love to play video games
+          ul
+            li Especially Minecraft!
+  section
+    h1 Who are you?
+    ul
+      li Name
+      li Grade
+      li Programming Experience
+      li Favorite thing about Minecraft
+  section
+    h1 Why are we here?
+  section
+    h1 What is Minecraft?
+  section
+    h2 What is Programming?
+  section
+    h1 Why combine them?
+    ul
+      li Power to create!
+      li Quickly build things
+      li Design plugins
+      li Create mini-games
+      li Add items, create new game modes
+      li Move on from Minecraft and make your own game!
+section
+  section
+    h1 Course Overview: Week 1
+    ul
+      li Day 1: Setup Minecraft/Introduction to Javascript
+      li Day 2: Creating things in Minecraft using JS
+      li Day 3: Writing Functions to build complex structures
+      li Day 4: Using Loops for repetitive code
+      li Day 5: Using conditionals to decide to do something
+  section
+    h1 Course Overview: Week 2 
+    ul
+      li Day 6: Using Event Listeners to interact with the server
+      li Day 7: Finish up instruction, Introduce Project design principles
+      li Day 8: Come up with idea for Project, Create 'Blueprint'
+      li Day 9: Finish Project
+section
+  section
+    h1 Setup Minecraft 
+    ul
+      li Install Minecraft Client
+      li Install CraftBukkit Server
+      li Install ScriptcraftJS Plugin
+      li Install Notepad++
+  section
+    h2 Install Minecraft Client
+  section
+    h2 Configure CraftBukkit Server
+    ul
+      li Put server.properties file in the server dir
+      li Launch server to generate files
+      li Stop server (<code>>stop</code>)
+      li Place scriptcraftjs.jar in the plugins dir
+      li Start the server again
+      li Give yourself operator status (<code>>op USERNAME</code>)
+  section
+    h2 Connecting to your server
+    ul
+      li Open Minecraft
+      li Choose Multiplayer
+      li Click 'Add Server'
+      li 
+        | Set 'Server Name' to whatever you want
+        ul
+          li e.g. "My Scriptcraft Server"
+      li Set 'Server Address' to 'localhost'
+  section
+    h2 Connecting to the Class Server
+    ul
+      li Click 'Add Server' again
+      li Set 'Server Name' to 'Classroom Server'
+      li Set 'Server Address' to 'minecraft.grahammackie.com'
+  section
+    h2 Adding Code to the Server
+    ul
+      li
+        |Your server
+        ul
+          li Create Folder: $SERVER/plugins/scriptcraft/plugins/myCode
+          li Save *.js files in that directory
+          li After saving, type /reload in-game to load your changes
+      li
+        |Class Server
+        ul
+          li Follow instructions to connect to your folder
+          li Create a shortcut on your desktop
+          li Save *.js files inside the folder with your name
+          li Server automatically reloads your changes!
+
+section
+  h1 Let's Play Minecraft!
+  h3 AND PROGRAM!
+section
+  h2 Try out some Javascript
+  ul
+    li Press T to open the chatbox
+    li To run javascript type <code>/js (code goes here)</code>
+    li 
+      |It can do math!
+      ul
+        li <code>/js 1 + 1</code>
+    li
+      |You can get the length of text
+      ul
+        li <code>/js "testing".length</code>
+        li <code>/js "this is a longer sentence".length</code>
+section
+  section
+    h1 Hello World
+    ul
+      li A simple program that greets the world
+      li Every programmers first program
+  section
+    h2 Extremely simple version
+    code /js echo("Hello World.")
+  section
+    h2 What is <code>echo()</code>?
+    h3 It's a function!
+  section
+    h2 Can we make this easier?
+    h3 Lets make our own function! <code>helloWorld()</code>
+  section
+    h1 helloworld.js
+    pre
+      code(data-trim contenteditable)
+        |exports.helloWorld = function()
+        |{
+        |   echo("Hello World.");
+        |};
+section
+  section
+    h1 Let's try some more!
+  section
+    h2 add.js
+    pre
+      code(data-trim contenteditable)
+        |exports.add = function(num1, num2)
+        |{
+        |   num1 = num1 || 1;
+        |   num2 = num2 || num1 || 6;
+        |   var myNum = 15;
+        |   var myName = "deathfudge"
+        |   var result = num1 + num2 + myNum
+        |   echo("The result for " + myName + " is: " + result);
+        |};
+  section
+    h2 greet.js
+    pre
+      code(data-trim contenteditable)
+        |exports.greet = function(player)
+        |{
+        |   player.sendMessage('Hi ' + player.name);
+        |};
+  section
+    h2 fly.js
+    pre
+      code(data-trim contenteditable)
+        |exports.flyOn = function(player)
+        |{
+        |   player.allowFlight = true;
+        |};
+    pre
+      code(data-trim contenteditable)
+        |exports.flyOff = function(player)
+        |{
+        |   player.allowFlight = false;
+        |};

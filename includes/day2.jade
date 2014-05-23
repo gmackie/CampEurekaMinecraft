@@ -1,0 +1,225 @@
+section
+  h1 Learning To Program with Minecraft
+  h2 Day 2: Creating Shapes in JS
+  h3 Camp Eureka 2014
+  p.
+    Created by 
+    <a href="http://grahammackie.com">Graham Mackie</a>
+    /
+    <a href="http://twitter.com/grahamamckie">@GrahamMackie</a>
+section
+  h1 Course Overview: Week 1
+  ul
+    li Day 1: Setup Minecraft/Introduction to Javascript
+    li Day 2: Creating things in Minecraft using JS
+    li Day 3: Writing Functions to build complex structures
+    li Day 4: Using Loops for repetitive code
+    li Day 5: Using conditionals to decide to do something
+
+section
+  section
+    h1 Review from yesterday
+
+  section
+    h1 Coding Inside Minecraft
+    ul
+      li 
+        | Press <b>T</b> to open the chatbox
+        ul  
+          li <code>/js 5+9</code>
+          li <code>/js echo("Hello World.");</code> 
+      li 
+        | What is echo?
+        ul
+          li It's a function!
+      li
+        | We made functions too!
+        ul
+          li <code>greet(player), add(num1,num2),</code> etc...
+
+  section
+    h1 Functions
+    ul
+      li
+        | add.js
+        pre
+          code(data-trim contenteditable)
+            |exports.add = function(num1, num2)
+            |{
+            |   num1 = num1 || 1;
+            |   num2 = num2 || num1 || 6;
+            |   var myNum = 15;
+            |   var myName = "deathfudge"
+            |   var result = num1 + num2 + myNum
+            |   echo("The result for " + myName + " is: " + result);
+            |};
+      li
+        | greet.js
+        pre
+          code(data-trim contenteditable)
+            |exports.greet = function(player)
+            |{
+            |   player.sendMessage('Hi ' + player.name);
+            |};
+
+section
+  section
+    h2 Using Functions to MAKE STUFF!
+    ul
+      li Tons of shape functions are built into ScriptcraftJS
+      li 
+        | Functions use <code>Drone</code> objects to create blocks
+        ul
+          li Creates objects forward and to the right of the player
+          li More on <code>Drone</code>s tomorrow!
+
+  section
+    h2 box
+    ul
+      li Creates a solid box of blocks
+      li
+        | <code>box(blocks.BLOCKTYPE, length, height, depth)</code>
+        ul
+          li See Blocktype handout for more info
+      li
+        | Place block, point cursor at it, Press <b>T</b>
+        ul
+          li Type <code>/js box(blocks.oak,2,3,2)</code>
+      li Follow the <code>box()</code> section in today's handout
+        
+  section
+    h2 prism
+    ul
+      li Makes a solid triangular prism
+      li
+        | <code>prism(blocks.BLOCKTYPE, length, height)</code>
+        ul
+          li Note: height should be more than 2
+          li Remember to place a block first!
+      li Try it: <code>/js prism(blocks.diamond,4,5)</code>
+      li See the <code>prism()</code> section for more practice
+        
+  section
+    h2 cylinder
+    ul
+      li 
+        | Makes a solid cylinder
+        ul
+          li Perfect for tree trunks!
+      li
+        | <code>cylinder(blocks.BLOCKTYPE, radius, height)</code>
+        ul
+          li Note: length/width will be 2x radius
+          li Remember to place a block first!
+      li Try it: <code>/js cylinder(blocks.oak,3,7)</code>
+      li See the <code>cylinder()</code> section for more practice
+
+  section
+    h2 Hollow Shapes
+    ul
+      li
+        | We can make hollow shapes too
+        ul
+          li Great for buildings!
+      li 
+        | <code>box0()</code> makes boxes with 4 sides
+        ul
+          li No top, no bottom
+      li 
+        | <code>box0(blocks.BLOCKTYPE, length, height, depth)</code> 
+        ul
+          li Alomst identical to <code>box()</code>
+      li Try it: <code>/js box0(blocks.stone,8,4,6)</code>
+      li See the <code>box0()</code> section for more practice
+
+  section
+    h2 Hollow Shapes
+    ul
+      li 
+        | <code>prism0()</code> makes a hollow traingular prism
+        ul
+          li Makes a nice roof for a house
+      li 
+        | <code>prism0(blocks.BLOCKTYPE, length, height)</code> 
+        ul
+          li Alomst identical to <code>prism()</code>
+      li Try it: <code>/js prism0(blocks.stone,6,8)</code>
+      li See the <code>prism0()</code> section for more practice
+
+  section
+    h2 Hollow Shapes
+    ul
+      li 
+        | <code>cylinder0()</code> makes a hollow tube
+        ul
+          li Might be useful for a castle spire?
+      li 
+        | <code>cylinder0(blocks.BLOCKTYPE, radius, height)</code> 
+        ul
+          li Alomst identical to <code>cylinder()</code>
+      li Try it: <code>/js cylinder0(blocks.stone,4,8)</code>
+      li See the <code>cylinder0()</code> section for more practice
+
+section
+  section
+    h1 Cool Stuff
+    p
+      | We can make more than just plain old shapes! There's a lot more cool stuff
+      | too!
+  section
+    h1 Doors
+    ul
+      li
+        | Single Door
+        ul
+          li <code>door()</code>
+          li <code>door()</code> - Iron Door
+      li
+        | Double Door
+        ul
+          li <code>door2()</code>
+          li <code>door2()</code> - Iron Double Door
+      li Try adding doors to your hollow shapes!
+
+  section
+    h1 Plants
+    ul
+      li
+        | Trees
+        ul
+          li <code>oak()</code>
+          li <code>spruce()</code> 
+          li <code>birch()</code>
+          li <code>jungle()</code> 
+      li
+        | Garden
+        ul
+          li <code>garden(width, length)</code>
+      li Try to put a bunch of trees/gardens around your shapes!
+
+  section
+    h1 Text
+    ul
+      li You can make giant text out of blocks too!
+      li <code>blocktype(text,blocks.BLOCKTYPE)</code>
+      li You can also add a second blocktype for a background too (optional)
+      li <code>/js blocktype("Hello", blocks.glowstone)</code>
+      li <code>/js blocktype("Hello", blocks.oak, blocks.wool)</code>
+
+  section
+    h1 rainbows
+
+  section
+    h1 stairs
+    ul
+      li
+        | Simple Stairs
+        ul
+          li Just use <code>box()</code> and use stairs for blocktype
+      li
+        | Spiral Staircase
+        ul
+          li Has its own function
+          li <code>spiral_stairs(stairType, flights)</code>
+          li See handout for possible <code>stairTypes</code>
+          li Flights are 3 blocks high

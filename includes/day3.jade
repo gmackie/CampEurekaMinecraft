@@ -1,0 +1,202 @@
+section
+  h1 Learning To Program with Minecraft
+  h2 Day 3: Using Drones to Make Stuff
+  h4 Camp Eureka 2014
+  p.
+    Created by 
+    <a href="http://grahammackie.com">Graham Mackie</a>
+    /
+    <a href="http://twitter.com/grahamamckie">@GrahamMackie</a>
+section
+  h1 Course Overview: Week 1
+  ul
+    li Day 1: Setup Minecraft/Introduction to Javascript
+    li Day 2: Creating things in Minecraft using JS
+    li Day 3: Writing Functions to build complex structures
+    li Day 4: Using Loops for repetitive code
+    li Day 5: Using conditionals to decide to do something
+
+section
+  section
+    h1 Review from yesterday
+
+  section
+    h1 Coding Inside Minecraft
+    ul
+      li 
+        | Press <b>T</b> to open the chatbox
+        ul  
+          li <code>/js 5+9</code>
+          li <code>/js echo("Hello World.");</code> 
+      li 
+        | What is echo?
+        ul
+          li It's a function!
+      li
+        | We made functions too!
+        ul
+          li <code>greet(player), add(num1,num2),</code> etc...
+
+  section
+    h1 Functions
+    ul
+      li
+        | add.js
+        pre
+          code(data-trim contenteditable)
+            |exports.add = function(num1, num2)
+            |{
+            |   num1 = num1 || 1;
+            |   num2 = num2 || num1 || 6;
+            |   var myNum = 15;
+            |   var myName = "deathfudge"
+            |   var result = num1 + num2 + myNum
+            |   echo("The result for " + myName + " is: " + result);
+            |};
+      li
+        | greet.js
+        pre
+          code(data-trim contenteditable)
+            |exports.greet = function(player)
+            |{
+            |   player.sendMessage('Hi ' + player.name);
+            |};
+  section
+    h2 Using Functions to MAKE STUFF!
+    ul
+      li Tons of shape functions are built into ScriptcraftJS
+      li <code>box(blocks.BLOCKTYPE, length, height, depth)</code>
+      li <code>box0(blocks.BLOCKTYPE, length, height, depth)</code>
+      li <code>prism0(blocks.BLOCKTYPE, length, height, depth)</code>
+      li <code>door()</code>
+      li <code>garden(length, width)</code>
+      li etc...
+  section
+    h2 Objects
+    ul
+      li Covered briefly at the end of Day 1
+      li Player object (type: CraftBukkitPlayer)
+      li
+        | Objects have parameters
+        ul
+          li <code>player.name</code>
+          li <code>player.allowFlight</code>
+      li
+        | Objects can also have functions
+        ul
+          li More on that soon!
+      li There are lots of different objects in Minecraft!
+
+section
+  h1 Drone Object
+  ul
+    li 
+      | Invisible worker that is created at the block the player is pointing at
+      ul
+        li This is why we have to create a block first!
+    li
+      | Can create shapes, move around, and create more shapes!
+      ul
+        li Very useful for building structures
+    li Let's look at an example
+
+section
+  h2 Putting it all together
+  pre
+    code(data-trim contenteditable)
+      |exports.twoCubes = function(size1, size2)
+      |{
+      |   size1 = size1 || 4;
+      |   size2 = size2 || size1 || 6;
+      |   var d = new Drone;
+      |   
+      |   d.up(1); // this makes is so we don't have to make a block beforehand
+      |   d.box(blocks.stone, size1, size1, size1);
+      |   d.right(size1 + 5); //moves the drone 5 blocks to the right of 1st cube
+      |   d.box(blocks.oak, size2, size2, size2);
+      |};
+
+section
+  h2 Drone Functions
+  ul
+    li <code>d.up(numBlocks)</code>
+    li <code>d.down(numBlocks)</code>
+    li <code>d.right(numBlocks)</code>
+    li <code>d.left(numBlocks)</code>
+    li <code>d.fwd(numBlocks)</code>
+    li <code>d.back(numBlocks)</code>
+    li <code>d.turn(numBlocks)</code>
+    li <code>d.box(blocks.BLOCKTYPE, length, height, depth)</code>
+    li etc...
+
+section
+  h2 Drone Checkpoints
+  ul
+    li
+      | Drones can mark their current location with checkpoints
+      ul 
+        li <code>d.chkpnt(checkpointName)</code>
+        li ex: <code>d.chkpnt("start")</code>
+    li
+      | Drones can move back to their previous checkpoints
+      ul 
+        li <code>d.move(checkpointName)</code>
+        li ex: <code>d.move("start")</code>
+
+section
+  h2 More drone fun
+  p
+    | Work through the <b>Drone</b> portion of the handout to get more
+    | practice with creating things using the drone
+
+section
+  section
+    h1 Let's Build a House!
+  section
+    h3 Let's Build a House!
+    ul
+      li Make a new file: <code>house.js</code>
+      li Create a <code>house()</code> function
+      li Create a drone
+      li
+        | Make the walls
+        ul
+          li Could use <code>box()</code> to make each wall (hard)
+          li Use <code>box0()</code> to make 4 walls at once (easy!)
+      li Move the drone to the top of the walls
+      li Build a roof with <code>prism0()</code>
+  
+  section
+    h2 Housing Problems
+    ul
+      li We forgot a floor!
+      li How can we go back and fix it?
+      li 
+        | We still want to add more stuff inside
+        ul
+          li Doors (Can't break in like Kool-Aid Man)
+          li Torches (It's awfully dark in there...)
+      li Is there an easy way to get back to our starting spot?
+
+  section
+    h2 More house stuff
+    ul
+      li Let's add a checkpoint
+      li Add a door (or 2)
+      li Can we add some windows?
+      li 
+        | How about Torches
+        ul
+          li Windows won't help at night
+          li can we place a ring of torches on the walls?
+      li Let's throw in some bookshelves too
+
+  section
+    h2 Starting to looke like a Real Home
+    ul
+      li Let's add a yard!
+      li Place a 'yard' checkpoint
+      li Build a fence
+      li Add some gates
+      li Plant a few gardens
+      li Make a path from the door to the gate
