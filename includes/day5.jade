@@ -1,0 +1,187 @@
+section
+  h1 Learning To Program with Minecraft
+  h2 Day 4: Loops
+  h4 Camp Eureka 2014
+  p.
+    Created by 
+    <a href="http://grahammackie.com">Graham Mackie</a>
+    /
+    <a href="http://twitter.com/grahamamckie">@GrahamMackie</a>
+
+section
+  section
+    h1 Its Friday!
+
+  section
+    h1 We've learned a lot this week!
+
+section
+  section
+    h1 Course Overview: Week 1
+    ul
+      li Day 1: Setup Minecraft/Introduction to Javascript
+      li Day 2: Creating things in Minecraft using JS
+      li Day 3: Writing Functions to build complex structures
+      li Day 4: Using Loops for repetitive code
+      li Day 5: Using conditionals to decide to do something
+
+section
+  section
+    h1 Review from Yesterday
+  
+  section
+    h1 Drones
+    pre
+      code(data-trim contenteditable)
+        |exports.twoCubes = function(size1, size2)
+        |{
+        |   size1 = size1 || 4;
+        |   size2 = size2 || size1 || 6;
+        |   var d = new Drone;
+        |   
+        |   d.up(1); // this makes is so we don't have to make a block beforehand
+        |   d.box(blocks.stone, size1, size1, size1);
+        |   d.right(size1 + 5); //moves the drone 5 blocks to the right of 1st cube
+        |   d.box(blocks.oak, size2, size2, size2);
+        |};
+  
+  section
+    h1 loops
+    pre
+      code(data-trim contenteditable)
+        |exports.scraper = function()
+        |{
+        |   numFloors = numFloors || 5;
+        |   var d = new Drone;
+        |
+        |   for(var curFloor = 0; curFloor < numFloors; curFloor++)
+        |   {
+        |     d.box(blocks.iron, 10, 1, 10);
+        |     d.up(1);
+        |     d.box0(blocks.glass, 10, 3, 10);
+        |     d.up(3);
+        |   }
+        |};
+
+section
+  h2 More Scraper
+  ul
+    li
+      | Let's try and add a Door
+      ul
+        li Try putting it inside the loop
+        li How can we fix this?
+    li 
+      | What if we wanted Balconies on every other floor?
+      ul
+        li Could use a separate loop...
+        li What if we could do some stuff <b><i>some</i></b> of the time?
+
+section
+  h2 If Statements
+  ul
+    li Exectues a code block if a given condition or boolean is true
+    li Can also use <code>else</code> to execute a code block when the condition is false
+    li Let's look at an example
+
+section
+  h2 guessnum.js
+  pre
+    code(data-trim contenteditable)
+      |exports.guessNum = function(num) 
+      |{
+      |   var myNum = 15;
+      |   if(num == myNum)
+      |   {
+      |     self.sayMessage("Correct! You guessed the number!");
+      |   }
+      |   else
+      |   {
+      |     self.sayMessage("Wrong number! Please try again!");
+      |   }
+      |};
+
+section
+  h3 else if: more than 2 options
+  ul
+    li 
+      | Number Game
+      ul
+        li Want to tell player if they're too high or too low
+        li use <code>else if</code> to give feedback for <code>> myNum</code> and <code>< myNum</code>
+
+section
+  section
+    h2 Back to flying
+    ul
+      li 
+        | Typing <code>flyOn()</code> and <code>flyOff()</code> is too much work
+        ul
+          li Have to remember which one to use...
+          li How about <code>toggleFlight()</code>
+          li We can even tell people what they're changing to!
+
+  section
+    h2 Back to Flying
+    pre
+      code(data-trim contenteditable)
+        |exports.toggleFlight = function(player) 
+        |{
+        |   if(player.allowFlight)
+        |   {
+        |     player.allowFlight = false;
+        |     player.sayMessage("Turning OFF flight for " + player.name);
+        |   }
+        |   else
+        |   {
+        |     player.allowFlight = true;
+        |     player.sayMessage("Turning ON flight for " + player.name);
+        |   }
+        |};
+
+section
+  section
+    h2 scraper.js: If Statements
+    pre
+      code(data-trim contenteditable)
+        |exports.scraper = function()
+        |{
+        |   numFloors = numFloors || 5;
+        |   var d = new Drone;
+        |
+        |   for(var curFloor = 0; curFloor < numFloors; curFloor++)
+        |   {
+        |     d.box(blocks.iron, 10, 1, 10);
+        |     d.up(1);
+        |     d.box0(blocks.glass, 10, 3, 10);
+        |     d.up(3);
+        |     if(curFloor == 0)
+        |     {
+        |       // add door here
+        |     }
+        |   }
+        |};
+  section
+    h2 Balconies?
+    ul
+      li What if we want a balcony on every other floor?
+      li And flower on every 4th floor
+      li Lots of crazy things!
+
+section
+  h1 Modulus Operator
+  ul
+    li
+      | Think of like "remainder" in division
+      ul
+        li uses the <code>%</code> symbol
+    li
+      | <code>21 % 4 = 1</code>
+      ul
+        li 21 / 4 = 5 R 1
+    li
+      | <code>curFloor % 2 == 0</code>
+      ul
+        li Checks if 2 divides evenly in curFloor
+        li (Checks if curFloor is even!)
+
