@@ -1,0 +1,166 @@
+section
+  h1 Learning To Program with Minecraft
+  h2 Day 7: Intro to Forge Mods and Java
+  h4 Camp Eureka 2014
+  p.
+    Created by 
+    <a href="http://grahammackie.com">Graham Mackie</a>
+    /
+    <a href="http://twitter.com/grahamamckie">@GrahamMackie</a>
+
+section
+  section
+    h1 Course Overview: Week 2 
+    ul
+      li Day 6: Using Event Listeners to interact with the server
+      li Day 7: Intro to Java/Forge Mods 
+      li Day 8: Creating Items/Blocks 
+      li Day 9: Creating Weapons and Armor
+  
+  section
+    h1 Course Overview: Week 1
+    ul
+      li Day 1: Setup Minecraft/Introduction to Javascript
+      li Day 2: Creating things in Minecraft using JS
+      li Day 3: Writing Functions to build complex structures
+      li Day 4: Using Loops for repetitive code
+      li Day 5: Using conditionals to decide to do something
+  
+section
+  section
+    h2 And now for something Completely 
+    h2 Different
+    ul
+      li Javascript is nice, but to create full mods we need to use Java
+      li With Java, we can add custom monsters, items, armor, effects, etc...
+      li If you can think of it, it's probably possible
+  section
+    h2 Complex games are complex
+    ul
+      li Minecraft is a very complex game
+      li 
+        | This makes it difficult to cover EVERYTHING you'd need to know
+        ul
+          li We will cover a small subset
+          li Enough to get you started
+          li Enough to show off to people!
+
+section
+  section
+    h2 Getting Set up
+    ul
+      li 
+        a(href="http://www.getpaint.net") Download Paint.net
+      li
+        a(href="https://www.eclipse.org/downloads/") Download Eclipse
+      li Install both of them
+      li 
+        a(href="http://adf.ly/673885/http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.2-10.12.1.1091/forge-1.7.2-10.12.1.1091-src.zip") Download Forge Mod Source
+
+  section
+    h2 Playing around in Paint.net
+    ul
+      li This is where we will draw our in-game assets
+      li Items are 16x16px .png files
+      li 
+        | Try making a few items
+        ul
+          li Banana
+          li Doll
+          li Pizza
+
+  section
+    h2 Setting up forge
+    ul
+      li Unzip the folder somewhere easily accessible (C:\forge)
+      li Open a terminal window in that folder
+      li 
+        | Run <code>gradlew.bat setupDecompWorkspace --refresh-dependencies</code>
+        ul
+          li This takes a while...
+      li
+        | Then run <code>gradlew.bat eclipse</code>
+        ul
+          li This also takes a while
+      li If you run OSX/Linux let me know and I will help you!
+
+section
+  section
+    h1 Our First Mod
+    ul
+      li 
+        | File -> New -> Package
+        ul
+          li Name it something like <code>com.playerName.testMod</code>
+      li 
+        | File -> New -> Class
+      li Copy code from ExampleMod.java and replace your code with it
+  
+  section
+    h1 Our First Mod
+    ul
+      li Change <code>package</code> statement to correspond to your package
+      li 
+        | Change "ExampleMod" to the name of your class 
+        ul
+          li In Java, Class name and Filename must be identical
+      li Check that <code>@Mod</code> refers to your class, not ExampleMod
+      li Change the <code>system.out.println</code> code to print a message to the console
+
+  section
+    h2 Running our mod
+    ul
+      li To run the mod, click the green play button
+      li Minecraft will open up on its own
+      li 
+        | Must choose single player now
+        ul
+          li Our servers use the bukkit mod for scriptcraft
+          li They are not compatible with Forge mods :(
+          li Can do this with bukkit too, but is more confusing
+      li 
+        | When Minecraft runs, check the console for your new message
+        ul
+          li If it appears, your mod loaded successfully!
+
+section
+  section
+    h2 Adding Recipes
+    ul
+      li Create your own recipes using items aleady in the game
+      li Let's make diamonds out of dirt!
+  
+  section
+    h2 Adding Recipes
+    p Add the following code to your <code>init</code> function:
+    pre
+      code(data-trim contenteditable)
+        | //Recipe dirt to diamonds
+        | ItemStack dirtStack = new ItemStack(Blocks.dirt);
+        | ItemStack diamonds10 = new ItemStack(Blocks.diamond_block, 10);
+        | GameRegistry.addRecipe(diamonds,10
+        |   " x ",
+        |   "x x",
+        |   " x ",
+        |   'x', dirtStack);
+
+  section
+    h2 Adding Recipes
+    ul
+      li Create a new ItemStack called dirtStack with a single dirt block
+      li Create a new ItemStack called diamonds10 with 10 diamond blocks
+      li 
+        | Add a new recipe to the game that will produce a stack of 10 diamonds
+        ul
+          li Dirt must be placed where the 'x's are
+
+  section
+    h2 Shapeless Recipes
+    ul
+      li Much simpler
+      li Doesn't matter where you put blocks
+    pre
+      code(data-trim contenteditable)
+        | GameRegistry.addShapelessRecipe(
+        |   new ItemStack(Items.diamond, 6), new ItemStack(Blocks.dirt));
+
