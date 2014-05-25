@@ -1,0 +1,266 @@
+section
+  h1 Learning To Program with Minecraft
+  h2 Day 4: Loops
+  h4 Camp Eureka 2014
+  p.
+    Created by 
+    <a href="http://grahammackie.com">Graham Mackie</a>
+    /
+    <a href="http://twitter.com/grahamamckie">@GrahamMackie</a>
+
+section
+  section
+    h1 Welcome Back!
+
+  section
+    h1 We've learned a lot last week!
+    h2 And we've got plenty more to learn
+  
+  section
+    h2 Code from last week
+    pre
+      code(data-trim contenteditable)
+        |exports.scraper = function()
+        |{
+        |   numFloors = numFloors || 5;
+        |   var d = new Drone;
+        |
+        |   for(var curFloor = 0; curFloor < numFloors; curFloor++)
+        |   {
+        |     d.box(blocks.iron, 10, 1, 10);
+        |     d.up(1);
+        |     d.box0(blocks.glass, 10, 3, 10);
+        |     d.up(3);
+        |     if(curFloor == 0)
+        |     {
+        |       // add door here
+        |     }
+        |   }
+        |};
+
+section
+  section
+    h1 Course Overview: Week 1
+    ul
+      li Day 1: Setup Minecraft/Introduction to Javascript
+      li Day 2: Creating things in Minecraft using JS
+      li Day 3: Writing Functions to build complex structures
+      li Day 4: Using Loops for repetitive code
+      li Day 5: Using conditionals to decide to do something
+  
+  section
+    h1 Course Overview: Week 2 
+    ul
+      li Day 6: Using Event Listeners to interact with the server
+      li Day 7: Finish up instruction, Introduce Project design principles
+      li Day 8: Come up with idea for Project, Create 'Blueprint'
+      li Day 9: Finish Project
+  
+  //section
+  //  h1 Course Overview: Week 2 
+  //  ul
+  //    li Day 6: Using Event Listeners to interact with the server
+  //    li Day 7: Intro to Java/Forge Mods 
+  //    li Day 8: Creating Items/Blocks 
+  //    li Day 9: Creating Weapons and Armor
+section
+  h2 Recall: greet.js
+  ul
+    li Says 'hi' to a given player
+    li 
+      | What if you wanted to say hi to every player that joined?
+      ul
+        li Do you want to type <code>/js greet(player) everytime?
+        li Is there an easier way to do this?
+
+section
+  section
+    h1 Events
+      ul
+        li
+          | ScriptcraftJS allows us to add 'event listeners' that will execute code
+          | when a certain event happens
+        li What is an event?
+  
+  section
+    h1 Events
+    ul
+      li 
+        | Every time someone joins the server
+        ul
+          li That's an event!
+      li 
+        | Every time someone breaks a block
+        ul
+          li That's an event!
+      li 
+        | Every time someone shoots an arrow
+        ul
+          li That's an event!
+      li etc..
+
+section
+  h2 Our first listener
+  pre
+    code(data-trim contenteditable)
+      |events.on( 'player.PlayerJoinEvent', function( event ) {
+      |   event.player.sendMessage( 'Hello ' + event.player.name + '! Welcome to my plugin');
+      |});
+
+section
+  h1 Class Server Listeners
+  p
+    | Please don't use event listeners on the class server. If everyone is doing
+    | stuff with an event, Each person's code will execute!
+  ul
+    li Don't want 20 "Hi Player!" messages on joining
+
+section
+  section
+    h2 More fun with events!
+    ul
+      li Let's break some blocks
+    pre
+      code(data-trim contenteditable)
+        |events.on('block.BlockBreakEvent', function ( event ) 
+        |{ 
+        |   var breaker = event.player;
+        |   breaker.sendMessage('You broke a block');    
+        |});
+
+  section
+    h2 More on breaking blocks
+    ul
+      li We can also get the type of block that was broken:
+    pre
+      code(data-trim contenteditable)
+        |events.on('block.BlockBreakEvent', function ( event ) 
+        |{ 
+        |   var breaker = event.player;
+        |   breaker.sendMessage('You broke a block');    
+        |});
+
+  section
+    h2 Block Breaking Game?
+    ul
+      li Keep track of how many blocks are broken for each player
+      li Possibly keep track for how many of certain types of blocks are broken
+      li Some way of outputting a scoreboad
+
+  section
+    h2 Block Breaker
+    pre
+      code(data-trim contenteditable)
+        |var breaks = {};
+        |//every time a player joins the game reset their block-break-count to 0
+        |events.on('player.PlayerJoinEvent', function( event ) {
+        |   breaks[event.player] = 0;
+        |});
+        |
+        |events.on('block.BlockBreakEvent', function( event ) {
+        |  var breaker = event.player;
+        |  var breakCount = breaks[breaker.name];
+        |  breakCount++; // increment the count.
+        |  breaks[breaker.name] = breakCount;
+        |  
+        |  breaker.sendMessage('You broke ' + breakCount + 'blocks');
+        |});
+
+  section
+    h2 Block Breaker
+    ul
+      li How do we add stuff for sepcific blocks?
+      li How can we get scores?
+
+  section
+    h2 Block Breaker - Specific Blocks
+    pre
+      code(data-trim contenteditable)
+        |var breaks = {};
+        |//every time a player joins the game reset their block-break-count to 0
+        |events.on('player.PlayerJoinEvent', function( event ) {
+        |   breaks[event.player] = 0;
+        |});
+        |
+        |events.on('block.BlockBreakEvent', function( event ) {
+        |  var breaker = event.player;
+        |  var breakCount = breaks[breaker.name];
+        |  breakCount++; // increment the count.
+        |  breaks[breaker.name] = breakCount;
+        |  
+        |  breaker.sendMessage('You broke ' + breakCount + 'blocks');
+        |});
+
+section
+  section
+    h1 Exploding Arrows
+    ul
+      li Some events have to be accessed in a kludgy way
+      li 
+        | This code doesn't have to make 100% sense to you...
+        ul
+          li but you should be able to follow along!
+          li Plus, everyone loves exploding things!
+  section
+    h1 Exploding Arrows
+    pre
+      code(data-trim contenteditable)
+        |importPackage(org.bukkit.entity);
+        |bukkit.on("entity.ProjectileHitEvent", function(listener, event){
+        |  var projectile = event.entity;
+        |  var world = projectile.world;
+        |  if (projectile instanceof Arrow && projectile.shooter instanceof Player){
+        |    projectile.remove();
+        |    world.createExplosion(projectile.location,2.5);
+        |  }
+        |});
+
+section
+  section
+    h2 More Events
+    ul
+      li We have barely scratched the surface as far as what is possible with events
+      li Let's take a look at a few examples
+
+  section
+    h2 More Fun with Arrows
+    ul
+      li
+        |<code>/js arrows.firework(self)</code>
+        ul
+          li A firework launches where the arrow lands
+      li
+        |<code>/js arrows.lightning(self)</code>
+        ul
+          li Lightning strikes where the arrow lands
+      li
+        |<code>/js arrows.teleport(self)</code>
+        ul
+          li Makes player teleport to where the arrow lands
+      li
+        |<code>/js arrows.flourish(self)</code>
+        ul
+          li Makes a tree grow where the arrow lands
+      li
+        |<code>/js arrows.explosive(self)</code>
+        ul
+          li Makes arrows explode
+          li (like our code!!)
+      li
+        |<code>/js arrows.normal(self)</code>
+        ul
+          li Turns the arrows back to normal
+
+  section
+    h1 Cow Clicker
+    ul
+      li To start playing <code>/jsp cowclicker</code>
+      li Right-Click the cows to score points
+      li Very similar to our block game!
+
+  section
+    h1 Snowball Fight
+    ul
+      li How many of you have seen snow before?
+      li Teams or free for all?
+
