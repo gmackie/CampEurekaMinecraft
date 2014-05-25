@@ -1,0 +1,259 @@
+section
+  h1 Learning To Program with Minecraft
+  h2 Day 4: Loops
+  h4 Camp Eureka 2014
+  p.
+    Created by 
+    <a href="http://grahammackie.com">Graham Mackie</a>
+    /
+    <a href="http://twitter.com/grahamamckie">@GrahamMackie</a>
+section
+  h1 Course Overview: Week 1
+  ul
+    li Day 1: Setup Minecraft/Introduction to Javascript
+    li Day 2: Creating things in Minecraft using JS
+    li Day 3: Writing Functions to build complex structures
+    li Day 4: Using Loops for repetitive code
+    li Day 5: Using conditionals to decide to do something
+
+section
+  section
+    h1 Review from yesterday
+
+  section
+    h1 Creating Shapes
+    ul
+      li Tons of shape functions are built into ScriptcraftJS
+      li <code>box(blocks.BLOCKTYPE, length, height, depth)</code>
+      li <code>box0(blocks.BLOCKTYPE, length, height, depth)</code>
+      li <code>prism0(blocks.BLOCKTYPE, length, height, depth)</code>
+      li <code>door()</code>
+      li <code>garden(length, width)</code>
+      li etc...
+
+  section
+    h1 Drones!
+    pre
+      code(data-trim contenteditable)
+        |exports.twoCubes = function(size1, size2)
+        |{
+        |   size1 = size1 || 4;
+        |   size2 = size2 || size1 || 6;
+        |   var d = new Drone;
+        |   
+        |   d.up(1); // this makes is so we don't have to make a block beforehand
+        |   d.box(blocks.stone, size1, size1, size1);
+        |   d.right(size1 + 5); //moves the drone 5 blocks to the right of 1st cube
+        |   d.box(blocks.oak, size2, size2, size2);
+        |};
+
+section
+  section
+    h2 Do you wanna build a 'scraper?
+    ul
+      li Built a house, how about a skyscraper?
+      li How many floors do we want?
+      li Make a file called scraper.js
+      li 
+        | Create a <code>scraper()</code> fucntion
+        ul
+          li 5 floors
+          li Glass walls
+          li Iron floors
+  section
+    h2 scraper.js
+    pre
+      code(data-trim contenteditable)
+        |exports.scraper = function()
+        |{
+        |   var d = new Drone;
+        |  
+        |   d.box(blocks.iron, 10, 1, 10);
+        |   d.up(1);
+        |   d.box0(blocks.glass, 10, 3, 10);
+        |   d.up(3);
+        |   d.box(blocks.iron, 10, 1, 10);
+        |   d.up(1);
+        |   d.box0(blocks.glass, 10, 3, 10);
+        |   d.up(3);
+        |   d.box(blocks.iron, 10, 1, 10);
+        |   d.up(1);
+        |   d.box0(blocks.glass, 10, 3, 10);
+        |   d.up(3);
+        |   d.box(blocks.iron, 10, 1, 10);
+        |   d.up(1);
+        |   d.box0(blocks.glass, 10, 3, 10);
+        |   d.up(3);
+        |   d.box(blocks.iron, 10, 1, 10);
+        |   d.up(1);
+        |   d.box0(blocks.glass, 10, 3, 10);
+        |   d.up(3);
+        |
+        |};
+    
+  section
+  h2 More scrapers
+  ul
+    li
+      | People are bored of 5 story skyscrapers
+      ul
+        li Now they want 10!
+    li Just add more lines of code!
+    li But what if they want more floors? 50? 100?
+    li What if they want different scrapers with different heights?
+    li Is there and easy way to do this?
+
+section
+  h1 Loops
+  ul
+    li All ous to run the same code until "something" happens
+    li "something" = condition
+    li 
+      | Boolean (true/false)
+      ul
+        li Comparing variables
+        li object properties
+        li etc...
+
+section
+  h2 Comparisons
+  ul
+    li <code>x == 0</code> (<code>x</code> is equal to <code>0</code>
+    li <code>x > 5</code> (<code>x</code> is greater than <code>5</code>
+    li <code>x >= 9</code> (<code>x</code> is greater than or equal to <code>9</code>
+    li <code>x < numFloors</code> (<code>x</code> is less than <code>numFloors</code>
+    li <code>x <= player.health</code> (<code>x</code> is less than or equal to <code>player.health</code>
+    li <code>x != 8</code> (<code>x</code> is not equal to <code>8</code>
+
+section
+  section
+    h1 The While() Loop
+    pre
+      code(data-trim contenteditable)
+        |exports.scraper = function()
+        |{
+        |   numFloors = numFloors || 5;
+        |   var d = new Drone;
+        |   var curFloor = 0;
+        |
+        |   while(curFloor < numFloors)
+        |   {
+        |     // Code to build one floor goes here 
+        |     curFloor = curFloor + 1
+        |   }
+        |};
+  
+  section
+    h1 Scraper with loops
+    pre
+      code(data-trim contenteditable)
+        |exports.scraper = function()
+        |{
+        |   numFloors = numFloors || 5;
+        |   var d = new Drone;
+        |   var curFloor = 0;
+        |
+        |   while(curFloor < numFloors)
+        |   {
+        |     d.box(blocks.iron, 10, 1, 10);
+        |     d.up(1);
+        |     d.box0(blocks.glass, 10, 3, 10);
+        |     d.up(3);
+        |     curFloor = curFloor + 1
+        |   }
+        |};
+  
+  section
+    h2 More on while()
+    p It turns out
+    pre
+      code(data-trim contenteditable)
+        | var num = 0;
+        | while(num < finalNum)
+        | {
+        |   // Loop stuff goes here
+        |   num = num + 1; // increment the counter
+        | }
+    p Is fairly common in programming, so common, they came up with a special loop
+
+section
+  section
+    h2 The for() loop
+    p It looks like this
+    pre
+      code(data-trim contenteditable)
+        | for(var num = 0; num < finalNum; num++)
+        | {
+        |   // Loop stuff goes here
+        | }
+
+  section
+    h2 scraper() with for() loop
+    pre
+      code(data-trim contenteditable)
+        |exports.scraper = function()
+        |{
+        |   numFloors = numFloors || 5;
+        |   var d = new Drone;
+        |
+        |   for(var curFloor = 0; curFloor < numFloors; curFloor++)
+        |   {
+        |     d.box(blocks.iron, 10, 1, 10);
+        |     d.up(1);
+        |     d.box0(blocks.glass, 10, 3, 10);
+        |     d.up(3);
+        |   }
+        |};
+
+section
+  section
+    h1 More Loops
+    ul
+      li
+        | Can be used to do something to each item in a list/array
+        ul
+          li Say Hi to all the players on the server
+          li Make everyone able/unable to fly
+          li Play a noise near every player
+  
+  section
+    h2 greetAll.js
+    pre
+      code(data-trim contenteditable)
+        |exports.greetAll = function()
+        |{
+        |   var players = server.onlinePlayers;
+        |   var player, i;
+        |
+        |   for(i = 0; i < players.length; i++)
+        |   {
+        |     player = players[i];
+        |     player.say("Hello" + player.name);
+        |   }
+        |};
+
+  section
+    h2 noFlyAll.js
+    ul
+      li
+        | Remember when we made <code>flyOff.js</code>?
+        ul
+          li <code>player.allowFlight = false</code>
+      li How can we modify <code>greetAll.js</code> to do this?
+
+  section
+    h2 noFlyAll.js
+    pre
+      code(data-trim contenteditable)
+        |exports.noFlyAll = function()
+        |{
+        |   var players = server.onlinePlayers;
+        |   var player, i;
+        |
+        |   for(i = 0; i < players.length; i++)
+        |   {
+        |     player = players[i];
+        |     player.allowFlight = false;
+        |   }
+        |};
+
