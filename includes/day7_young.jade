@@ -1,0 +1,225 @@
+section
+  h1 Learning To Program with Minecraft
+  h2 Day 7: Finish Material. Start Project Ideas
+  h4 Camp Eureka 2014
+  p.
+    Created by 
+    <a href="http://grahammackie.com">Graham Mackie</a>
+    /
+    <a href="http://twitter.com/grahamamckie">@GrahamMackie</a>
+
+section
+  section
+    h1 Recall:
+  
+  section
+    h2 Code from last week
+    pre
+      code(data-trim contenteditable)
+        |exports.scraper = function()
+        |{
+        |   numFloors = numFloors || 5;
+        |   var d = new Drone;
+        |
+        |   for(var curFloor = 0; curFloor < numFloors; curFloor++)
+        |   {
+        |     d.box(blocks.iron, 10, 1, 10);
+        |     d.up(1);
+        |     d.box0(blocks.glass, 10, 3, 10);
+        |     d.up(3);
+        |     if(curFloor == 0)
+        |     {
+        |       // add door here
+        |     }
+        |   }
+        |};
+        
+  section
+    h2 Event-Driven Programming
+
+section
+  h1 Course Overview: Week 2 
+  ul
+    li Day 6: Using Event Listeners to interact with the server
+    li Day 7: Finish up instruction, Introduce Project design principles
+    li Day 8: Come up with idea for Project, Create 'Blueprint'
+    li Day 9: Finish Project
+
+section
+  h2 Finish Covering Old Material
+  ul
+    li Anything anyone is confused about?
+    li Anything anyone wants to know in more detail?
+    li Loops, Conditionals, Drones, Functions?
+
+section
+  section
+    h2 Commands on a "real" server
+    ul
+      li 
+        | Right now, all of you have access to <code>/js</code> on the server
+        ul
+          li This is normally only for operators
+          li 
+            | Malicious users can wreak havoc on servers with it
+            ul
+              li Make people fly/not fly
+              li Set other people's health to 0
+              li Bad things... etc...
+  
+  section
+    h2 Commands on a "real" server
+    p 
+      | Luckily, scriptcraft provides us with two options for exposing commands
+      | to normal users. We will discuss them in the following slides.
+    ul
+      li <code>command()</code>
+      li <code>commando()</code>
+
+section
+  section
+    h2 command()
+    ul
+      li 
+        | <code>command()</code> is the easiest way to allow normal players to run
+        | your functions
+      li To run function: <code>/jsp COMMAND_NAME</code>
+      li 
+        | Doesn't make it <code>/COMMAND_NAME</code>
+        ul
+          li That's "Bad Ettiquite"
+          li  But what if we want it anyways!?
+    pre
+      code(data-trim contenteditable)
+        | command('greet', function(args, player){
+        |   player.sendMessage('Hi ' + player.name);
+        | });
+    
+  section
+    h2 command() - Building things
+    pre
+      code(data-trim contenteditable)
+        |command('scraper', function(args, player){
+        |   var numFloors = args[0] || 5;
+        |   var d = new Drone;
+        | 
+        |   for(var curFloor = 0; curFloor < numFloors; curFloor++)
+        |   {
+        |     d.box(blocks.iron, 10, 1, 10);
+        |     d.up(1);
+        |     d.box0(blocks.glass, 10, 3, 10);
+        |     d.up(3);
+        |   }
+        |
+        |});
+
+section
+  h2 Commands on Class Server
+  p
+    | Note: Make sure if you write commands that are on the class server, they can't
+    | have the same name as anyone else's commands that are on the class server.
+    | Doing so might cause your/their code to not work, and is a bit of a nightmare
+    | to try and figure out!
+
+section
+  section
+    h2 Commando()
+    ul
+      li A plugin created by the people who "don't care about bad ettiquite"
+      li Allows users to execute commands with only <code>/COMMAND_NAME</code>
+      li Extremely similar to <code>command()</code>
+      li
+        | Drawbacks:
+        ul
+          li Doesn't actually create global commands
+          li Tab Complettion doesn't work
+  
+  section
+    h2 commando()
+    pre
+      code(data-trim contenteditable)
+        | var commando = require('../commando');
+        | commando('hi', function(args,player){
+        |    player.sendMessage('Hi ' + player.name);
+        |    });
+
+  section
+    h2 More commando()
+    pre
+      code(data-trim contenteditable)
+        | var times = {Dawn: 0, Midday: 6000, Dusk: 12000, Midnight:18000};
+        | commando('timeofday', function(params,player){
+        |   player.location.world.setTime(times[params[0]]);
+        | },
+        | ['Dawn','Midday','Dusk','Midnight']);
+
+  section
+    h1 Now You Try!
+
+section
+  h1 Final Project
+  ul
+    li Work on it the next 2 days
+    li Present on Friday!
+    li
+      | Two Options
+      li Event-Based plugin
+      li Custom complex structure
+
+section
+  section
+    h2 Custom Complex Structures
+    ul
+      li 
+        | Drones
+        ul
+          li Move them around
+          li Use some checkpoints
+          li Use multiple functions (<code>box0(), prism0(), door()</code>, etc..)
+      li Function doesn't have to have parameters (but it would be nice)
+      li Build something other than what we've made in class
+      li (Maybe) use <code>command()</code> or <code>commando()</code>
+  
+  section
+    h2 Possible Ideas
+    ul
+      li Train Tunnel (powered rails, redstone, buttons, etc)
+      li Complex house (Multiple floors/rooms, windows, balconies, etc)
+      li City block (skyscrapers with a road and stuff)
+      li Castle (Outer Walls, Spires, Inner Keep, Gate, moat, etc)
+      li WHATEVER YOU WANT!
+
+section
+  section
+    h2 Event-Based Plugin
+    ul
+      li Lots of events to choose from
+      li Some sample plugins to base off of (CowClicker, Arrows, Snowball Fight)
+      li 
+        | This is actually hard
+        ul
+          li You only have 2 days (4 hours) to make it
+          li I would recommend structures
+          li 
+            |If you have a somewhat simple idea, and are confident in doing it,
+            |go for it
+
+section
+  section
+    h2 Project Design
+    br
+    br
+    h3 Whats the first thing programmers do when starting a project?
+
+  section
+    h2 STEP AWAY FROM THE KEYBOARD
+    br
+    br
+    h3 Design with pencil and paper first
+
+  section
+    h2 Project Design
+    ul
+      li Start trying to come up with some ideas for what you want to make
+      li Feel free to ask me questions
+
