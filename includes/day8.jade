@@ -1,0 +1,296 @@
+section
+  h1 Learning To Program with Minecraft
+  h2 Day 7: Intro to Forge Mods and Java
+  h4 Camp Eureka 2014
+  p.
+    Created by 
+    <a href="http://grahammackie.com">Graham Mackie</a>
+    /
+    <a href="http://twitter.com/grahamamckie">@GrahamMackie</a>
+
+section
+  section
+    h1 Course Overview: Week 2 
+    ul
+      li Day 6: Using Event Listeners to interact with the server
+      li Day 7: Intro to Java/Forge Mods 
+      li Day 8: Creating Items/Blocks 
+      li Day 9: Creating Weapons and Armor
+
+section
+  section
+    h1 JAVA!
+    h3 Your first 'real' programming language
+
+  section
+    h2 Forge Mods
+    ul
+      li 
+        | Able to completely change the game
+        ul
+          li With ScriptcraftJS, we could only 'extend' the game
+      li With great power, comes great complexity
+      li We will only be scratching the surface of what is possible
+      li There are plenty of guides/tutorials online to take you further
+
+  section
+    h2 Yesterday: ExampleMod
+    pre
+      code(data-trim contenteditable)
+        | package com.example.examplemod;
+        | 
+        | import net.minecraft.init.Blocks;
+        | import cpw.mods.fml.common.Mod;
+        | import cpw.mods.fml.common.Mod.EventHandler;
+        | import cpw.mods.fml.common.event.FMLInitializationEvent;
+        | 
+        | @Mod(modid = ExampleMod.MODID, version = ExampleMod.VERSION)
+        | public class ExampleMod
+        | {
+        |     public static final String MODID = "examplemod";
+        |     public static final String VERSION = "1.0";
+        |     
+        |     @EventHandler
+        |     public void init(FMLInitializationEvent event)
+        |     {
+        | 		// some example code
+        |         System.out.println("This is our first JAVA mod!!");
+        |     }
+        | }
+        |
+
+section
+  section
+    h2 Today: Adding more Stuff
+    ul
+      li Creating our own Items
+      li Creating our own blocks
+
+  section
+    h2 You guys make the decision
+    p
+      | Do you guys want to create a tutorial item/block today or do you guys
+      | want to make your own items? 
+
+section
+  section
+    h2 Creating Items
+    ul
+      li Create the texture for the item
+      li Add Item to Mod in Java (Eclipse)
+      li Create Language file (To add our text to the game)
+
+  section
+    h2 Creating the item texture
+    ul
+      li Open Paint.Net
+      li Create a 16x16 Image
+      li save it as a .png
+  
+  section
+    h2 Adding the item to the game
+    ul
+      li Open up your exampleMod from yesterday in eclispe
+      li Create a new package: <code>NAME.firstitem</code>
+      li Create a new class with your item name and place the follow code:
+        pre
+          code(data-trim contenteditable)
+            | package gmackie.firstitem;
+            | import net.minecraft.creativetab.CreativeTabs;
+            | import net.minecraft.item.Item;
+            | public class MyFirstItem extends Item
+            | {
+            |   public MyFirstItem()
+            |   {
+            |     // This is the constructor for our new item. 
+            |     // Set basic properties in it.
+            |     setMaxStackSize(64);
+            |     setCreativeTab(exampleTab);
+            |     setUnlocalizedName("MyItem");
+            |   }
+            | }
+  // MIGHT HAVE TO ADD STUFF HERE ABOUT IMPORTING STUFF!
+
+  section
+    h2 Adding the item to the game
+    ul
+      li Go to the exampleMod.java file from yesterday
+      li Add the following code inside the <code>preInit()</code> function
+        pre
+          code(data-trim)
+            | MyFirstItem first = new MyFirstItem();
+            | GameRegistry.registerItem(first, "MyItem"); 
+            | // This name doesn't have to be same as unlocalised name, 
+            | //but no harm in them being the same
+      li Press <code>ctrl+shift+O</code> to import all the right stuff above
+  
+  section
+    h1 Run the game!
+    h3 You should see your item with the default texture in the example tab
+
+  section
+    h2 Creating the Language file
+    ul
+      li Create a new package in the <code>/src/main/resources</code> folder
+      li I called mine <code>assets.gmackie.lang</code> (you can change the middle)
+      li Add a new file called <code>en_US.lang</code>
+      li Place the following into the new file:
+        pre
+          code(data-trim)
+            | item.MyFirstItem.name=Graham's Special Coin
+
+  section
+    h2 Adding in the texture
+    ul
+      li Create a new package in the <code>/src/main/resources</code> folder
+      li I called mine <code>assets.gmackie.textures.items</code> (you can change the middle)
+      li Place your newly created <code>.png</code> file inside the package
+      li Add a new file called <code>en_US.lang</code>
+      li Place the following into the <code>preInit()</code> function:
+        pre
+          code(data-trim)
+            | first.setTextureName("gmackie:coin");
+      li <code>gmackie</code> is whatever you've been putting in the package names
+      li <code>coin</code> is whatever you named the <code>.png</code> file
+
+  section
+    h1 Run it again!
+    h3 This time your item should have a proper name and texture!
+
+  section
+    h2 More Stuff with our item
+    ul
+      li Can you add a crafting recipe for your item?
+      li What about smelting!?
+
+  section
+    h2 adding smelting
+    ul
+      li Since I have a coin, I want to be able to smelt my coins into gold
+      li Your item can be produced by smelting, or an ingredient
+      li To add a smelting recipe, simply add the following code to <code>preInit()</code>
+        pre
+          code(data-trim contenteditable)
+            | //Example of smelting
+            | ItemStack input = new ItemStack(Items.water_bucket);
+            | ItemStack output = new ItemStack(Blocks.obsidian);
+            | GameRegistry.addSmelting(input, output, 0.1f);
+      li <code>0.1f</code> is how much experience you get for smelting
+      li Experience must be between 0 and 1
+
+section
+  section
+    h1 Creating Blocks
+    h3 Very similar to creating items
+
+  section
+    h2 Creating blocks
+    ul
+      li Create the texture for the block
+      li Add block to Mod in Java (Eclipse)
+      li Create Language file (To add our text to the game)
+
+  section
+    h2 Creating the block texture
+    ul
+      li Open Paint.Net
+      li Create a 32x32 Image
+      li save it as a .png
+  
+  section
+    h2 Adding the block to the game
+    ul
+      li Create a new class with your block name and place the follow code:
+        pre
+          code(data-trim contenteditable)
+            | package gmackie.firstitem;
+            | 
+            | import net.minecraft.block.Block;
+            | import net.minecraft.block.material.Material;
+            | import net.minecraft.creativetab.CreativeTabs;
+            |  
+            | public class MyBlock extends Block
+            | {
+            |   public MyBlock()
+            |   {
+            |     // This is the constructor for our new item. Set basic
+            |     // properties in it.
+            |     super(Material.iron); // Copy the properties of iron
+            |        
+            |     setCreativeTab(CreativeTabs.tabBlock);
+            |     setBlockName("MyBlock"); 
+            |     // This is the internal name, not display name
+            |   }
+            | }
+  // MIGHT HAVE TO ADD STUFF HERE ABOUT IMPORTING STUFF!
+
+  section
+    h2 Adding the item to the game
+    ul
+      li Go to the exampleMod.java file from yesterday
+      li Add the following code inside the <code>preInit()</code> function
+        pre
+          code(data-trim)
+            | // Register my block and set its texture
+            | MyBlock b = new MyBlock();
+            | 
+            | // requires .png file with this name
+            | b.setBlockTextureName("gmackie:mblock"); 
+            | GameRegistry.registerBlock(b, "MyBlock");
+            |
+      li Press <code>ctrl+shift+O</code> to import all the right stuff above
+  
+  section
+    h1 Run the game!
+    h3 You should see your item with the default texture in the example tab
+
+  section
+    h2 Adding the block to the Language file
+    ul
+      li Go to the <code>/src/main/resources</code> folder
+      li Open the <code>en_US.lang</code> file in <code>assets.gmackie.lang</code>
+      li Place the following into the new file:
+        pre
+          code(data-trim)
+            | tile.MyBlock.name=Graham's Special Block
+
+  section
+    h2 Adding in the texture
+    ul
+      li Create a new package in the <code>/src/main/resources</code> folder
+      li I called mine <code>assets.gmackie.textures.blocks</code> (you can change the middle)
+      li Place your newly created <code>.png</code> file inside the package
+
+  section
+    h1 Run the game
+    h2 Check out your blocks and items!
+
+section
+  section 
+    h2 Packaging your mod
+    ul
+      li Play without using eclipse
+      li Allow friends/family to play your mod
+      li Allow servers to run your mod so lots of people can play with it
+      li Put your mod in an easy to download format online
+
+  section
+    h2 Packaging your mod
+    ul
+      li Edit build.gradle and change the group and archiveBaseName entries
+      li Open a command prompt and run <code>gradlew build</code>
+      li 
+        |In the folder build – lib, you will find your Jar file: you can post
+        |this on a website for other people to use.
+
+  section
+    h2 Playing on other people computers
+    ul
+      li 
+        a(href="http://www.minecraftforge.net/forum/index.php?action=files")
+          | Download Forge
+      li Look for 1.7.2-Recommended and then click on Installer-Win
+      li Select “Client install” 
+      li Open Windows Explorer and enter <code>%appdata%</code> as the location
+      li Open the <code>.minecraft</code> folder and then the <code>lib</code> folder
+      li Copy your new mod Jar file into <code>lib</code>
