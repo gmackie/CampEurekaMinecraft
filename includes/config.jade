@@ -11,11 +11,14 @@ script.
   
     theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
     transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-  
+    
+    // Parallax scrolling
+    parallaxBackgroundImage: 'img/mario_1.png',
+    parallaxBackgroundSize: '3584px 720px',
     multiplex: {
       secret: '14008229816715651561', // Obtained from the socket.io server. Gives this (the master) control of the presentation
       id: 'f91407684dd64ddd', // Obtained from socket.io server
-      url: 'reveal.dongs.in' // Location of socket.io server
+      url: 'pres.sudokraft.in' // Location of socket.io server
     },
     
     // Optional libraries used to extend on reveal.js
