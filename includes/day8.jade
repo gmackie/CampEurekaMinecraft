@@ -91,38 +91,94 @@ section
     h2 Adding the item to the game
     ul
       li Open up your exampleMod from yesterday in eclispe
-      li Create a new package: <code>NAME.firstitem</code>
-      li Create a new class with your item name and place the follow code:
+      li Create a new package: <code>campeureka.YOURNAME</code>
+      li Create a new class called MyFirstMod and place the follow code:
         pre
           code(data-trim contenteditable)
-            | package gmackie.firstitem;
-            | import net.minecraft.creativetab.CreativeTabs;
-            | import net.minecraft.item.Item;
-            | public class MyFirstItem extends Item
-            | {
-            |   public MyFirstItem()
-            |   {
-            |     // This is the constructor for our new item. 
-            |     // Set basic properties in it.
-            |     setMaxStackSize(64);
-            |     setCreativeTab(exampleTab);
-            |     setUnlocalizedName("MyItem");
-            |   }
-            | }
+            |package campeureka.gmackie;
+            | 
+            |import net.minecraft.creativetab.CreativeTabs;
+            |import net.minecraft.init.Blocks;
+            |import net.minecraft.init.Items;
+            |import net.minecraft.item.Item;
+            |import cpw.mods.fml.relauncher.Side;
+            |import cpw.mods.fml.relauncher.SideOnly;
+            |import cpw.mods.fml.common.Mod;
+            |import cpw.mods.fml.common.Mod.EventHandler;
+            |import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+            |import cpw.mods.fml.common.registry.GameRegistry;
+            | 
+            |@Mod(modid = "gmackiemod", name = "Camp Eureka Mod by Graham", version = "1.0")
+            |public class MyFirstMod
+            |{
+            |	public static CreativeTabs tabMe = new CreativeTabs("tabMe") 
+            |	{
+            |		@Override
+            |		@SideOnly(Side.CLIENT)
+            |		public Item getTabIconItem() 
+            |		{
+            |			return Item.getItemFromBlock(Blocks.tnt);
+            |		}
+            |	};
+            |	
+            |	
+            |	@EventHandler
+            |	public void preInit(FMLPreInitializationEvent event)
+            |	{
+            |		Ball ball = new Ball();
+            |		GameRegistry.registerItem(ball, "Basketball");
+            |		ball.setTextureName("gmackie:basketball");
+            |		ball.setCreativeTab(this.tabMe);
+            |		
+            |		HelloBlock hello = new HelloBlock();
+            |		hello.setBlockTextureName("gmackie:hello"); // requires .png file with this name
+            |		GameRegistry.registerBlock(hello, "HelloBlock");
+            |		hello.setCreativeTab(this.tabMe);
+            |	}
+            |}
   // MIGHT HAVE TO ADD STUFF HERE ABOUT IMPORTING STUFF!
 
   section
-    h2 Adding the item to the game
+    h2 Adding the block to the game
     ul
-      li Go to the exampleMod.java file from yesterday
-      li Add the following code inside the <code>preInit()</code> function
+      li Create a new class titled "BlockName"
+      li Paste the following code inside the class
         pre
           code(data-trim)
-            | MyFirstItem first = new MyFirstItem();
-            | GameRegistry.registerItem(first, "MyItem"); 
-            | // This name doesn't have to be same as unlocalised name, 
-            | //but no harm in them being the same
-      li Press <code>ctrl+shift+O</code> to import all the right stuff above
+            |package campeureka.gmackie;
+            | 
+            |import net.minecraft.block.Block;
+            |import net.minecraft.block.material.Material;
+            |import net.minecraft.creativetab.CreativeTabs;
+            | 
+            |public class HelloBlock extends Block
+            |{
+            | public HelloBlock()
+            | {
+            |   super(Material.iron); // Copy the properties of iron
+            |   
+            |   setCreativeTab(CreativeTabs.tabBlock);
+            |   setBlockName("HelloBlock"); // This is the internal name, not display name
+            | }
+            |}
+  section
+    h2 Adding the item to the game
+    ul
+      li Create a new class titled "ItemName"
+      li Paste the following code inside the class
+        pre
+          code(data-trim)
+            |package campeureka.gmackie;
+            |
+            |import net.minecraft.item.Item;
+            |public class Ball extends Item
+            |{
+            |   public Ball()
+            |   {
+            |      setMaxStackSize(64);
+            |      setUnlocalizedName("Ball");
+            |   }
+            |}
   
   section
     h1 Run the game!
@@ -132,26 +188,28 @@ section
     h2 Creating the Language file
     ul
       li Create a new package in the <code>/src/main/resources</code> folder
-      li I called mine <code>assets.gmackie.lang</code> (you can change the middle)
+      li <code>assets.YOURNAME.lang</code> (you can change the middle)
       li Add a new file called <code>en_US.lang</code>
       li Place the following into the new file:
         pre
           code(data-trim)
-            | item.MyFirstItem.name=Graham's Special Coin
+            | item.Ball.name=Someone's Ball
+            | tile.BlockName.name=Graham's Block
+            | itemGroup.tabMe=My Creative Tab 
 
   section
-    h2 Adding in the texture
+    h2 Adding in the block texture
     ul
       li Create a new package in the <code>/src/main/resources</code> folder
-      li I called mine <code>assets.gmackie.textures.items</code> (you can change the middle)
+      li Call it <code>assets.YOURNAME.textures.blocks</code> (you can change the middle)
       li Place your newly created <code>.png</code> file inside the package
-      li Add a new file called <code>en_US.lang</code>
-      li Place the following into the <code>preInit()</code> function:
-        pre
-          code(data-trim)
-            | first.setTextureName("gmackie:coin");
-      li <code>gmackie</code> is whatever you've been putting in the package names
-      li <code>coin</code> is whatever you named the <code>.png</code> file
+
+  section
+    h2 Adding in the item texture
+    ul
+      li Create a new package in the <code>/src/main/resources</code> folder
+      li Call it <code>assets.YOURNAME.textures.items</code> (you can change the middle)
+      li Place your newly created <code>.png</code> file inside the package
 
   section
     h1 Run it again!
@@ -177,89 +235,6 @@ section
             | GameRegistry.addSmelting(input, output, 0.1f);
       li <code>0.1f</code> is how much experience you get for smelting
       li Experience must be between 0 and 1
-
-section
-  section
-    h1 Creating Blocks
-    h3 Very similar to creating items
-
-  section
-    h2 Creating blocks
-    ul
-      li Create the texture for the block
-      li Add block to Mod in Java (Eclipse)
-      li Create Language file (To add our text to the game)
-
-  section
-    h2 Creating the block texture
-    ul
-      li Open Paint.Net
-      li Create a 32x32 Image
-      li save it as a .png
-  
-  section
-    h2 Adding the block to the game
-    ul
-      li Create a new class with your block name and place the follow code:
-        pre
-          code(data-trim contenteditable)
-            | package gmackie.firstitem;
-            | 
-            | import net.minecraft.block.Block;
-            | import net.minecraft.block.material.Material;
-            | import net.minecraft.creativetab.CreativeTabs;
-            |  
-            | public class MyBlock extends Block
-            | {
-            |   public MyBlock()
-            |   {
-            |     // This is the constructor for our new item. Set basic
-            |     // properties in it.
-            |     super(Material.iron); // Copy the properties of iron
-            |        
-            |     setCreativeTab(CreativeTabs.tabBlock);
-            |     setBlockName("MyBlock"); 
-            |     // This is the internal name, not display name
-            |   }
-            | }
-  // MIGHT HAVE TO ADD STUFF HERE ABOUT IMPORTING STUFF!
-
-  section
-    h2 Adding the item to the game
-    ul
-      li Go to the exampleMod.java file from yesterday
-      li Add the following code inside the <code>preInit()</code> function
-        pre
-          code(data-trim)
-            | // Register my block and set its texture
-            | MyBlock b = new MyBlock();
-            | 
-            | // requires .png file with this name
-            | b.setBlockTextureName("gmackie:mblock"); 
-            | GameRegistry.registerBlock(b, "MyBlock");
-            |
-      li Press <code>ctrl+shift+O</code> to import all the right stuff above
-  
-  section
-    h1 Run the game!
-    h3 You should see your item with the default texture in the example tab
-
-  section
-    h2 Adding the block to the Language file
-    ul
-      li Go to the <code>/src/main/resources</code> folder
-      li Open the <code>en_US.lang</code> file in <code>assets.gmackie.lang</code>
-      li Place the following into the new file:
-        pre
-          code(data-trim)
-            | tile.MyBlock.name=Graham's Special Block
-
-  section
-    h2 Adding in the texture
-    ul
-      li Create a new package in the <code>/src/main/resources</code> folder
-      li I called mine <code>assets.gmackie.textures.blocks</code> (you can change the middle)
-      li Place your newly created <code>.png</code> file inside the package
 
   section
     h1 Run the game
